@@ -94,5 +94,48 @@ namespace rename_baidustreetviews
                 listViewImages.EndUpdate();
             }
         }
+
+        private void btnChoseFile_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Multiselect = false;
+            dialog.Title = "请选择文件";
+            dialog.Filter = "文本文件(*.txt)|*.txt";
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                FilePath.Text = dialog.FileName;
+                string[] Textlines = System.IO.File.ReadAllLines(FilePath.Text);
+
+                foreach (string line in Textlines)
+                {
+                    // Use a tab to indent each line of the file.
+                    listBoxTxt.Items.Add(line);
+                }
+            }
+        }
+
+        private void btnRenaming_Click(object sender, EventArgs e)
+        {
+            if (FolderPath.Text == "" && FilePath.Text == "" || FolderPath.Text == "" || FilePath.Text == "")
+            {
+                MessageBox.Show("请选择文件夹或文件路径", "温馨提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                return;
+            }
+            DateTime StartTime = DateTime.Now;//获取开始时间
+
+            DirectoryInfo directoryinfo = new DirectoryInfo(FolderPath.Text);
+            FileInfo[] fileInfos = directoryinfo.GetFiles();
+
+            string[] TextLines = System.IO.File.ReadAllLines(FilePath.Text);
+
+            for (int i = 0; i < TextLines.Length; i++)
+            {
+                string strFileName = fileInfos[i].Name;
+                string strLineText = TextLines[i];
+                string filePrefix = textBoxPrefix.Text;
+                
+            }
+
+        }
     }
 }
