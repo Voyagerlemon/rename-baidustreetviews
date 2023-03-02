@@ -1,0 +1,11 @@
+E:\StreetView\BaiduPanoramas\rename-baidustreetviews\bin\Debug\rename-baidustreetviews.exe.config
+E:\StreetView\BaiduPanoramas\rename-baidustreetviews\bin\Debug\rename-baidustreetviews.exe
+E:\StreetView\BaiduPanoramas\rename-baidustreetviews\bin\Debug\rename-baidustreetviews.pdb
+E:\StreetView\BaiduPanoramas\rename-baidustreetviews\obj\Debug\rename-baidustreetviews.csproj.AssemblyReference.cache
+E:\StreetView\BaiduPanoramas\rename-baidustreetviews\obj\Debug\rename-baidustreetviews.csproj.SuggestedBindingRedirects.cache
+E:\StreetView\BaiduPanoramas\rename-baidustreetviews\obj\Debug\rename_baidustreetviews.Form1.resources
+E:\StreetView\BaiduPanoramas\rename-baidustreetviews\obj\Debug\rename_baidustreetviews.Properties.Resources.resources
+E:\StreetView\BaiduPanoramas\rename-baidustreetviews\obj\Debug\rename-baidustreetviews.csproj.GenerateResource.cache
+E:\StreetView\BaiduPanoramas\rename-baidustreetviews\obj\Debug\rename-baidustreetviews.csproj.CoreCompileInputs.cache
+E:\StreetView\BaiduPanoramas\rename-baidustreetviews\obj\Debug\rename-baidustreetviews.exe
+E:\StreetView\BaiduPanoramas\rename-baidustreetviews\obj\Debug\rename-baidustreetviews.pdb
