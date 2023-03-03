@@ -36,16 +36,19 @@
             this.btnChoseFile = new System.Windows.Forms.Button();
             this.btnChoseFolder = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
-            this.listViewImages = new System.Windows.Forms.ListView();
             this.listBoxFolderFiles = new System.Windows.Forms.ListBox();
+            this.listViewImages = new System.Windows.Forms.ListView();
             this.listBoxTxt = new System.Windows.Forms.ListBox();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.textBoxPrefix = new System.Windows.Forms.TextBox();
             this.labelText = new System.Windows.Forms.Label();
             this.btnRenaming = new System.Windows.Forms.Button();
             this.imageList = new System.Windows.Forms.ImageList(this.components);
+            this.btnMoveToFolder = new System.Windows.Forms.Button();
+            this.textBoxNewFolder = new System.Windows.Forms.TextBox();
+            this.btnRenamingTool = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -75,7 +78,7 @@
             this.FilePath.Location = new System.Drawing.Point(148, 65);
             this.FilePath.Multiline = true;
             this.FilePath.Name = "FilePath";
-            this.FilePath.Size = new System.Drawing.Size(540, 35);
+            this.FilePath.Size = new System.Drawing.Size(510, 35);
             this.FilePath.TabIndex = 8;
             // 
             // FolderPath
@@ -84,7 +87,7 @@
             this.FolderPath.Location = new System.Drawing.Point(148, 13);
             this.FolderPath.Multiline = true;
             this.FolderPath.Name = "FolderPath";
-            this.FolderPath.Size = new System.Drawing.Size(540, 33);
+            this.FolderPath.Size = new System.Drawing.Size(464, 33);
             this.FolderPath.TabIndex = 7;
             // 
             // btnChoseFile
@@ -107,7 +110,7 @@
             this.btnChoseFolder.Name = "btnChoseFolder";
             this.btnChoseFolder.Size = new System.Drawing.Size(119, 33);
             this.btnChoseFolder.TabIndex = 5;
-            this.btnChoseFolder.Text = "选择文件夹";
+            this.btnChoseFolder.Text = "重命名文件夹";
             this.btnChoseFolder.UseVisualStyleBackColor = true;
             this.btnChoseFolder.Click += new System.EventHandler(this.btnChoseFolder_Click);
             // 
@@ -128,14 +131,6 @@
             this.splitContainer1.Size = new System.Drawing.Size(1192, 510);
             this.splitContainer1.SplitterDistance = 481;
             this.splitContainer1.TabIndex = 9;
-            // 
-            // progressBar1
-            // 
-            this.progressBar1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.progressBar1.Location = new System.Drawing.Point(0, 0);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(1192, 25);
-            this.progressBar1.TabIndex = 0;
             // 
             // splitContainer2
             // 
@@ -171,16 +166,6 @@
             this.splitContainer3.SplitterDistance = 433;
             this.splitContainer3.TabIndex = 0;
             // 
-            // listViewImages
-            // 
-            this.listViewImages.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listViewImages.HideSelection = false;
-            this.listViewImages.Location = new System.Drawing.Point(0, 0);
-            this.listViewImages.Name = "listViewImages";
-            this.listViewImages.Size = new System.Drawing.Size(446, 481);
-            this.listViewImages.TabIndex = 0;
-            this.listViewImages.UseCompatibleStateImageBehavior = false;
-            // 
             // listBoxFolderFiles
             // 
             this.listBoxFolderFiles.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -190,6 +175,16 @@
             this.listBoxFolderFiles.Name = "listBoxFolderFiles";
             this.listBoxFolderFiles.Size = new System.Drawing.Size(433, 481);
             this.listBoxFolderFiles.TabIndex = 0;
+            // 
+            // listViewImages
+            // 
+            this.listViewImages.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listViewImages.HideSelection = false;
+            this.listViewImages.Location = new System.Drawing.Point(0, 0);
+            this.listViewImages.Name = "listViewImages";
+            this.listViewImages.Size = new System.Drawing.Size(446, 481);
+            this.listViewImages.TabIndex = 0;
+            this.listViewImages.UseCompatibleStateImageBehavior = false;
             // 
             // listBoxTxt
             // 
@@ -201,19 +196,29 @@
             this.listBoxTxt.Size = new System.Drawing.Size(305, 481);
             this.listBoxTxt.TabIndex = 0;
             // 
+            // progressBar1
+            // 
+            this.progressBar1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.progressBar1.Location = new System.Drawing.Point(0, 0);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(750, 25);
+            this.progressBar1.TabIndex = 0;
+            // 
             // textBoxPrefix
             // 
-            this.textBoxPrefix.Location = new System.Drawing.Point(795, 12);
+            this.textBoxPrefix.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.textBoxPrefix.Location = new System.Drawing.Point(735, 68);
             this.textBoxPrefix.Multiline = true;
             this.textBoxPrefix.Name = "textBoxPrefix";
             this.textBoxPrefix.Size = new System.Drawing.Size(151, 33);
             this.textBoxPrefix.TabIndex = 10;
+            this.textBoxPrefix.TextChanged += new System.EventHandler(this.textBoxPrefix_TextChanged);
             // 
             // labelText
             // 
             this.labelText.AutoSize = true;
             this.labelText.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labelText.Location = new System.Drawing.Point(713, 19);
+            this.labelText.Location = new System.Drawing.Point(664, 75);
             this.labelText.Name = "labelText";
             this.labelText.Size = new System.Drawing.Size(65, 20);
             this.labelText.TabIndex = 11;
@@ -222,10 +227,10 @@
             // btnRenaming
             // 
             this.btnRenaming.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnRenaming.Location = new System.Drawing.Point(717, 65);
+            this.btnRenaming.Location = new System.Drawing.Point(893, 67);
             this.btnRenaming.Margin = new System.Windows.Forms.Padding(4);
             this.btnRenaming.Name = "btnRenaming";
-            this.btnRenaming.Size = new System.Drawing.Size(166, 33);
+            this.btnRenaming.Size = new System.Drawing.Size(119, 33);
             this.btnRenaming.TabIndex = 5;
             this.btnRenaming.Text = "开始重命名";
             this.btnRenaming.UseVisualStyleBackColor = true;
@@ -237,11 +242,45 @@
             this.imageList.ImageSize = new System.Drawing.Size(16, 16);
             this.imageList.TransparentColor = System.Drawing.Color.Transparent;
             // 
+            // btnMoveToFolder
+            // 
+            this.btnMoveToFolder.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnMoveToFolder.Location = new System.Drawing.Point(627, 13);
+            this.btnMoveToFolder.Name = "btnMoveToFolder";
+            this.btnMoveToFolder.Size = new System.Drawing.Size(140, 33);
+            this.btnMoveToFolder.TabIndex = 12;
+            this.btnMoveToFolder.Text = "选择保存的文件夹";
+            this.btnMoveToFolder.UseVisualStyleBackColor = true;
+            this.btnMoveToFolder.Click += new System.EventHandler(this.btnMoveToFolder_Click);
+            // 
+            // textBoxNewFolder
+            // 
+            this.textBoxNewFolder.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.textBoxNewFolder.Location = new System.Drawing.Point(773, 14);
+            this.textBoxNewFolder.Multiline = true;
+            this.textBoxNewFolder.Name = "textBoxNewFolder";
+            this.textBoxNewFolder.Size = new System.Drawing.Size(407, 32);
+            this.textBoxNewFolder.TabIndex = 13;
+            // 
+            // btnRenamingTool
+            // 
+            this.btnRenamingTool.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnRenamingTool.Location = new System.Drawing.Point(1048, 65);
+            this.btnRenamingTool.Name = "btnRenamingTool";
+            this.btnRenamingTool.Size = new System.Drawing.Size(119, 33);
+            this.btnRenamingTool.TabIndex = 14;
+            this.btnRenamingTool.Text = "重命名小插件";
+            this.btnRenamingTool.UseVisualStyleBackColor = true;
+            this.btnRenamingTool.Click += new System.EventHandler(this.btnRenamingTool_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1192, 638);
+            this.Controls.Add(this.btnRenamingTool);
+            this.Controls.Add(this.textBoxNewFolder);
+            this.Controls.Add(this.btnMoveToFolder);
             this.Controls.Add(this.labelText);
             this.Controls.Add(this.textBoxPrefix);
             this.Controls.Add(this.splitContainer1);
@@ -253,7 +292,7 @@
             this.Controls.Add(this.splitter1);
             this.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Text = "百度静态图重命名";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -292,6 +331,9 @@
         private System.Windows.Forms.Label labelText;
         private System.Windows.Forms.Button btnRenaming;
         private System.Windows.Forms.ImageList imageList;
+        private System.Windows.Forms.Button btnMoveToFolder;
+        private System.Windows.Forms.TextBox textBoxNewFolder;
+        private System.Windows.Forms.Button btnRenamingTool;
     }
 }
 

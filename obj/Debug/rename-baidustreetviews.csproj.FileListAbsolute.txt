@@ -9,3 +9,4 @@ E:\StreetView\BaiduPanoramas\rename-baidustreetviews\obj\Debug\rename-baidustree
 E:\StreetView\BaiduPanoramas\rename-baidustreetviews\obj\Debug\rename-baidustreetviews.csproj.CoreCompileInputs.cache
 E:\StreetView\BaiduPanoramas\rename-baidustreetviews\obj\Debug\rename-baidustreetviews.exe
 E:\StreetView\BaiduPanoramas\rename-baidustreetviews\obj\Debug\rename-baidustreetviews.pdb
+E:\StreetView\BaiduPanoramas\rename-baidustreetviews\obj\Debug\rename_baidustreetviews.Form2.resources

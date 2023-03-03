@@ -1,33 +1,24 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 using System.Windows.Forms;
-using Microsoft.VisualBasic.Devices;
-using Microsoft.VisualBasic;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using System.Xml.Linq;
-using System.Reflection;
+using static rename_baidustreetviews.Form1;
+using System.Collections;
+using System.Runtime.InteropServices;
 
 namespace rename_baidustreetviews
 {
-    public partial class Form1 : Form
+    public partial class Form2 : Form
     {
-        public Form1()
+        public Form2()
         {
             InitializeComponent();
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
         }
         public class FileNameSort : IComparer
         {
@@ -55,55 +46,18 @@ namespace rename_baidustreetviews
         }
         private void btnChoseFolder_Click(object sender, EventArgs e)
         {
-            listBoxFolderFiles.Items.Clear();
             FolderSelectDialog dialog = new FolderSelectDialog();
             if (dialog.ShowDialog(this.Handle))
             {
                 FolderPath.Text = dialog.FileName;
-
-                // 遍历文件夹下的文件
                 DirectoryInfo directoryInfo = new DirectoryInfo(FolderPath.Text);
                 FileInfo[] fileInfos = directoryInfo.GetFiles();
                 Array.Sort(fileInfos, new FileNameSort());
-                //FileInfo[] sortedFiles = fileInfos.OrderBy(r => r.Name).ToArray();
-                foreach (FileInfo fileInfo in fileInfos)
-                    listBoxFolderFiles.Items.Add(fileInfo.FullName);
-                List<string> tifNames = new List<string>();
-
-                imageList.Images.Clear();
-                for (int i = 0; i < fileInfos.Length; i++)//遍历文件夹
-
-                {
-
-                    if (fileInfos[i].Length > 0 && fileInfos[i].Extension == ".png")//或者jpg，png 文件大小要大于0且是图片文件
-                    {
-                        Image image = Image.FromFile(fileInfos[i].DirectoryName + "\\" + fileInfos[i].Name);    //获取文件                 
-                        tifNames.Add(fileInfos[i].Name);//添加文件名
-                        imageList.Images.Add(image);//添加图片
-                    }
-
-                }
-                //初始化设置
-                //listViewImage.View = View.LargeIcon;
-                listViewImages.Items.Clear();
-                listViewImages.LargeImageList = imageList;
-
-                listViewImages.BeginUpdate();
-                for (int i = 0; i < tifNames.Count; i++)
-                {
-                    ListViewItem lvi = new ListViewItem();
-                    lvi.ImageIndex = i;
-                    lvi.Text = tifNames[i];
-                    listViewImages.Items.Add(lvi);
-
-                }
-                listViewImages.EndUpdate();
             }
         }
 
         private void btnChoseFile_Click(object sender, EventArgs e)
         {
-            listBoxTxt.Items.Clear();
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Multiselect = false;
             dialog.Title = "请选择文件";
@@ -111,24 +65,9 @@ namespace rename_baidustreetviews
             if (dialog.ShowDialog() == DialogResult.OK)
             {
                 FilePath.Text = dialog.FileName;
-                string[] Textlines = File.ReadAllLines(FilePath.Text);
-
-                foreach (string line in Textlines)
-                {
-                    listBoxTxt.Items.Add(line);
-                }
             }
         }
-        private void btnMoveToFolder_Click(object sender, EventArgs e)
-        {
-            listBoxFolderFiles.Items.Clear();
-            FolderSelectDialog dialog = new FolderSelectDialog();
-            if (dialog.ShowDialog(this.Handle))
-            {
-                textBoxNewFolder.Text = dialog.FileName;
 
-            }
-        }
         private void btnRenaming_Click(object sender, EventArgs e)
         {
             if (FolderPath.Text == "" && FilePath.Text == "" || FolderPath.Text == "" || FilePath.Text == "")
@@ -143,8 +82,6 @@ namespace rename_baidustreetviews
             }
             DateTime startTime = DateTime.Now;
 
-            //DirectoryInfo directoryinfo = new DirectoryInfo(FolderPath.Text);
-            //FileInfo[] fileInfos = directoryinfo.GetFiles();
             string[] fileInfos = Directory.GetFiles(FolderPath.Text);
             Array.Sort(fileInfos, new FileNameSort());
             string[] TextLines = File.ReadAllLines(FilePath.Text);
@@ -169,23 +106,18 @@ namespace rename_baidustreetviews
                 }
                 string singleFileName = sb.ToString();
                 List<string> listLat = new List<string>(singleFileName.Split(','));
-                //string newfileName = listLngLast[0];
+             
                 string fileName = filePrefix + "_" + listLng[1] + "_" + listLat[0] + ".png";
-                //string oldFilesPath = fileInfos[i].FullName;
                 string newFilesPath = FolderPath.Text + "\\" + fileName;
-                //var path1 = oldFilesPath.Replace('\\', '/');
                 var path2 = newFilesPath.Replace('\\', '/');
-                //FileSystem.Rename(oldFilesPath, newFilesPath);
-                //string old = fileInfos[i].Name;
-
-                string newFolderPath = "E:\\StreetView\\BaiduPanoramas\\worked_panoramas\\working2";
+                string newFolderPath = "E:\\StreetView\\BaiduPanoramas\\worked_panoramas\\working";
                 if (!Directory.Exists(newFolderPath))
                 {
                     Directory.CreateDirectory(newFolderPath);
                 }
                 try
                 {
-                   
+
                     File.Move(fileInfos[i], Path.Combine(newFolderPath, fileName));
                 }
                 catch (Exception ex)
@@ -198,26 +130,6 @@ namespace rename_baidustreetviews
             TimeSpan timeSpan = endTime - startTime;
             string timeConsuming = timeSpan.Hours.ToString() + "时" + timeSpan.Minutes.ToString() + "分" + timeSpan.Seconds.ToString() + "秒" + timeSpan.Milliseconds.ToString() + "毫秒";
             MessageBox.Show("文件重命名完成，总耗时：" + timeConsuming, "信息提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
         }
-
-        private void textBoxPrefix_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnRenamingTool_Click(object sender, EventArgs e)
-        {
-            Form2 renamingTool = new Form2();
-            renamingTool.ShowDialog();
-        }
-
-
-
-        //private void button1_Click(object sender, EventArgs e)
-        //{
-        //    //FileSystem.Rename("E:/StreetView/BaiduPanoramas/worked_panoramas/working1/15.png", "E:/StreetView/BaiduPanoramas/worked_panoramas/working1/beijing_116.422654_39.9136867.png");
-        //    MessageBox.Show("文件命名测试成功", "成功提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
-        //}
     }
 }
