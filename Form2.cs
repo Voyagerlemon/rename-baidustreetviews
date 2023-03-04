@@ -46,6 +46,7 @@ namespace rename_baidustreetviews
         }
         private void btnChoseFolder_Click(object sender, EventArgs e)
         {
+            listBoxImagesPath.Items.Clear();
             FolderSelectDialog dialog = new FolderSelectDialog();
             if (dialog.ShowDialog(this.Handle))
             {
@@ -53,6 +54,9 @@ namespace rename_baidustreetviews
                 DirectoryInfo directoryInfo = new DirectoryInfo(FolderPath.Text);
                 FileInfo[] fileInfos = directoryInfo.GetFiles();
                 Array.Sort(fileInfos, new FileNameSort());
+                foreach (FileInfo fileInfo in fileInfos)
+                    listBoxImagesPath.Items.Add(fileInfo.FullName);
+                MessageBox.Show("图片加载完成", "信息提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -106,7 +110,7 @@ namespace rename_baidustreetviews
                 }
                 string singleFileName = sb.ToString();
                 List<string> listLat = new List<string>(singleFileName.Split(','));
-             
+
                 string fileName = filePrefix + "_" + listLng[1] + "_" + listLat[0] + ".png";
                 string newFilesPath = FolderPath.Text + "\\" + fileName;
                 var path2 = newFilesPath.Replace('\\', '/');
@@ -130,6 +134,120 @@ namespace rename_baidustreetviews
             TimeSpan timeSpan = endTime - startTime;
             string timeConsuming = timeSpan.Hours.ToString() + "时" + timeSpan.Minutes.ToString() + "分" + timeSpan.Seconds.ToString() + "秒" + timeSpan.Milliseconds.ToString() + "毫秒";
             MessageBox.Show("文件重命名完成，总耗时：" + timeConsuming, "信息提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void btnOrdering_Click(object sender, EventArgs e)
+        {
+            if (FolderPath.Text == "" && listBoxImagesPath.Text == "")
+            {
+                MessageBox.Show("请选择文件夹", "信息提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                return;
+            }
+            else if(textBoxPrefix.Text != "")
+            {
+                MessageBox.Show("请在文件重名以后编码", "信息提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                return;
+            }
+            DirectoryInfo directoryinfo = new DirectoryInfo(FolderPath.Text);
+            FileInfo[] fileInfos = directoryinfo.GetFiles();
+            for (int i = 0; i < fileInfos.Length; i++)
+            {
+
+
+                if (i >= 0 && i <= 9)
+                {
+                    string fileName = fileInfos[i].Name;
+                    List<string> listViewName = new List<string>(fileName.Split('_'));
+                    string viewCityName = listViewName[0];
+                    string viewCityId = "0000" + i;
+                    string viewNewName = viewCityName + "_" + viewCityId + "_" + listViewName[1] + "_" + listViewName[2];
+                    string newFolderPath = "E:\\StreetView\\BaiduPanoramas\\worked_panoramas\\working_order";
+                    if (!Directory.Exists(newFolderPath))
+                    {
+                        Directory.CreateDirectory(newFolderPath);
+                    }
+                    try
+                    {
+
+                        File.Move(fileInfos[i].FullName, Path.Combine(newFolderPath, viewNewName));
+                    }
+                    catch (Exception ex)
+                    {
+
+                        MessageBox.Show(ex.Message, "错误提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                    }
+                }
+                else if (i >= 10 && i <= 99)
+                {
+                    string fileName = fileInfos[i].Name;
+                    List<string> listViewName = new List<string>(fileName.Split('_'));
+                    string viewCityName = listViewName[0];
+                    string viewCityId = "000" + i;
+                    string viewNewName = viewCityName + "_" + viewCityId + "_" + listViewName[1] + "_" + listViewName[2];
+                    string newFolderPath = "E:\\StreetView\\BaiduPanoramas\\worked_panoramas\\working_order";
+                    if (!Directory.Exists(newFolderPath))
+                    {
+                        Directory.CreateDirectory(newFolderPath);
+                    }
+                    try
+                    {
+
+                        File.Move(fileInfos[i].FullName, Path.Combine(newFolderPath, viewNewName));
+                    }
+                    catch (Exception ex)
+                    {
+
+                        MessageBox.Show(ex.Message, "错误提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                    }
+                }
+                else if (i >= 100 && i <= 999)
+                {
+                    string fileName = fileInfos[i].Name;
+                    List<string> listViewName = new List<string>(fileName.Split('_'));
+                    string viewCityName = listViewName[0];
+                    string viewCityId = "00" + i;
+                    string viewNewName = viewCityName + "_" + viewCityId + "_" + listViewName[1] + "_" + listViewName[2];
+                    string newFolderPath = "E:\\StreetView\\BaiduPanoramas\\worked_panoramas\\working_order";
+                    if (!Directory.Exists(newFolderPath))
+                    {
+                        Directory.CreateDirectory(newFolderPath);
+                    }
+                    try
+                    {
+
+                        File.Move(fileInfos[i].FullName, Path.Combine(newFolderPath, viewNewName));
+                    }
+                    catch (Exception ex)
+                    {
+
+                        MessageBox.Show(ex.Message, "错误提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                    }
+                }
+                else
+                {
+                    string fileName = fileInfos[i].Name;
+                    List<string> listViewName = new List<string>(fileName.Split('_'));
+                    string viewCityName = listViewName[0];
+                    string viewCityId = "0" + i;
+                    string viewNewName = viewCityName + "_" + viewCityId + "_" + listViewName[1] + "_" + listViewName[2];
+                    string newFolderPath = "E:\\StreetView\\BaiduPanoramas\\worked_panoramas\\working_order";
+                    if (!Directory.Exists(newFolderPath))
+                    {
+                        Directory.CreateDirectory(newFolderPath);
+                    }
+                    try
+                    {
+
+                        File.Move(fileInfos[i].FullName, Path.Combine(newFolderPath, viewNewName));
+                    }
+                    catch (Exception ex)
+                    {
+
+                        MessageBox.Show(ex.Message, "错误提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                    }
+                }
+            }
+            MessageBox.Show("文件编码完成", "信息提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
         }
     }
 }

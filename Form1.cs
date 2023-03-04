@@ -98,6 +98,7 @@ namespace rename_baidustreetviews
 
                 }
                 listViewImages.EndUpdate();
+                MessageBox.Show("图片加载完成", "信息提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
