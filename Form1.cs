@@ -213,8 +213,6 @@ namespace rename_baidustreetviews
             renamingTool.ShowDialog();
         }
 
-
-
         //private void button1_Click(object sender, EventArgs e)
         //{
         //    //FileSystem.Rename("E:/StreetView/BaiduPanoramas/worked_panoramas/working1/15.png", "E:/StreetView/BaiduPanoramas/worked_panoramas/working1/beijing_116.422654_39.9136867.png");

@@ -114,7 +114,7 @@ namespace rename_baidustreetviews
                 string fileName = filePrefix + "_" + listLng[1] + "_" + listLat[0] + ".png";
                 string newFilesPath = FolderPath.Text + "\\" + fileName;
                 var path2 = newFilesPath.Replace('\\', '/');
-                string newFolderPath = "E:\\StreetView\\BaiduPanoramas\\worked_panoramas\\working";
+                string newFolderPath = "E:\\StreetView\\BaiduPanoramas\\worked_panoramas\\shenzhen";
                 if (!Directory.Exists(newFolderPath))
                 {
                     Directory.CreateDirectory(newFolderPath);

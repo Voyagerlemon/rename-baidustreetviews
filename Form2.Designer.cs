@@ -59,6 +59,7 @@
             this.btnRenaming.TabIndex = 14;
             this.btnRenaming.Text = "开始重命名";
             this.btnRenaming.UseVisualStyleBackColor = true;
+            this.btnRenaming.Click += new System.EventHandler(this.btnRenaming_Click);
             // 
             // textBoxPrefix
             // 
