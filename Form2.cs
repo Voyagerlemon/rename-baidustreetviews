@@ -26,7 +26,7 @@ namespace rename_baidustreetviews
             [System.Runtime.InteropServices.DllImport("Shlwapi.dll", CharSet = CharSet.Unicode)]
             private static extern int StrCmpLogicalW(string param1, string param2);
 
-            //前后文件名进行比较。
+            //前后文件名进行比较
             public int Compare(object name1, object name2)
             {
                 if (null == name1 && null == name2)
@@ -84,6 +84,11 @@ namespace rename_baidustreetviews
                 MessageBox.Show("必须设置前缀，是城市名，如：beijing", "警告", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
                 return;
             }
+            else if (newFolderPath.Text == "")
+            {
+                MessageBox.Show("必须设置需要保存的新文件夹地址", "警告", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                return;
+            }
             DateTime startTime = DateTime.Now;
 
             string[] fileInfos = Directory.GetFiles(FolderPath.Text);
@@ -114,15 +119,15 @@ namespace rename_baidustreetviews
                 string fileName = filePrefix + "_" + listLng[1] + "_" + listLat[0] + ".png";
                 string newFilesPath = FolderPath.Text + "\\" + fileName;
                 var path2 = newFilesPath.Replace('\\', '/');
-                string newFolderPath = "E:\\StreetView\\BaiduPanoramas\\worked_panoramas\\shenzhen";
-                if (!Directory.Exists(newFolderPath))
+                // string newFolderPath = "E:\\StreetView\\BaiduPanoramas\\worked_panoramas\\shenzhen";
+                if (!Directory.Exists(newFolderPath.Text))
                 {
-                    Directory.CreateDirectory(newFolderPath);
+                    Directory.CreateDirectory(newFolderPath.Text);
                 }
                 try
                 {
 
-                    File.Move(fileInfos[i], Path.Combine(newFolderPath, fileName));
+                    File.Move(fileInfos[i], Path.Combine(newFolderPath.Text, fileName));
                 }
                 catch (Exception ex)
                 {
@@ -248,6 +253,15 @@ namespace rename_baidustreetviews
                 }
             }
             MessageBox.Show("文件编码完成", "信息提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+        }
+
+        private void btnSaveFolder_Click(object sender, EventArgs e)
+        {
+            FolderSelectDialog dialog = new FolderSelectDialog();
+            if (dialog.ShowDialog(this.Handle))
+            {
+                newFolderPath.Text = dialog.FileName;
+            }
         }
     }
 }
