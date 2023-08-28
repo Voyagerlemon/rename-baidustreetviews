@@ -56,7 +56,7 @@ namespace rename_baidustreetviews
                 Array.Sort(fileInfos, new FileNameSort());
                 foreach (FileInfo fileInfo in fileInfos)
                     listBoxImagesPath.Items.Add(fileInfo.FullName);
-                MessageBox.Show("图片加载完成", "信息提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                // MessageBox.Show("图片加载完成", "信息提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -93,6 +93,15 @@ namespace rename_baidustreetviews
 
             string[] fileInfos = Directory.GetFiles(FolderPath.Text);
             Array.Sort(fileInfos, new FileNameSort());
+
+            List<int> originalFileBaseNames = new List<int>();
+            // 提取原始百度街景的文件名不包括文件后缀
+            foreach(string fileInfo in fileInfos)
+            {
+                string originalFileBaseName = Path.GetFileNameWithoutExtension(fileInfo);
+                originalFileBaseNames.Add(int.Parse(originalFileBaseName));
+            }
+            List<string> listLngLat = new List<string>();
             string[] TextLines = File.ReadAllLines(FilePath.Text);
             for (int i = 0; i < TextLines.Length; i++)
             {
@@ -116,25 +125,41 @@ namespace rename_baidustreetviews
                 string singleFileName = sb.ToString();
                 List<string> listLat = new List<string>(singleFileName.Split(','));
 
-                string fileName = filePrefix + "_" + listLng[1] + "_" + listLat[0] + ".png";
-                string newFilesPath = FolderPath.Text + "\\" + fileName;
-                var path2 = newFilesPath.Replace('\\', '/');
-                // string newFolderPath = "E:\\StreetView\\BaiduPanoramas\\worked_panoramas\\shenzhen";
-                if (!Directory.Exists(newFolderPath.Text))
+                // 判断txt文件序号与图片序号的一一对应的关系
+                string cleanedFileOrder = listLng[0].Replace("\"", "");
+                // +1是txt文件的序号是从0开始的, 图片名是从1开始的
+                int order = int.Parse(cleanedFileOrder) + 1;
+                var matche = originalFileBaseNames.Where(o => o == order);
+                if(matche.Any())
                 {
-                    Directory.CreateDirectory(newFolderPath.Text);
-                }
-                try
-                {
+                    string fileName = filePrefix + "_" + listLng[1] + "_" + listLat[0] + ".png";
+                    //string newFilesPath = FolderPath.Text + "\\" + fileName;
+                    listLngLat.Add(order + "," + listLng[1] + "," + listLat[0]);
 
-                    File.Move(fileInfos[i], Path.Combine(newFolderPath.Text, fileName));
-                }
-                catch (Exception ex)
-                {
-
-                    MessageBox.Show(ex.Message, "错误提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                    if (!Directory.Exists(newFolderPath.Text))
+                    {
+                        Directory.CreateDirectory(newFolderPath.Text);
+                    }
+                    try
+                    {
+                        string moveFileName = order + ".png";
+                        string moveFilePath = FolderPath.Text + "\\" + moveFileName;
+                        var matcheFilePath = fileInfos.Where(n => n == moveFilePath);
+                        if (matcheFilePath.Any())
+                        {
+                            File.Move(moveFilePath, Path.Combine(newFolderPath.Text, fileName));
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "错误提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                    }
                 }
             }
+
+            string txtPath = newFolderPath.Text + textBoxPrefix.Text + ".txt";
+            File.WriteAllLines(txtPath, listLngLat);
+
             DateTime endTime = DateTime.Now;
             TimeSpan timeSpan = endTime - startTime;
             string timeConsuming = timeSpan.Hours.ToString() + "时" + timeSpan.Minutes.ToString() + "分" + timeSpan.Seconds.ToString() + "秒" + timeSpan.Milliseconds.ToString() + "毫秒";
